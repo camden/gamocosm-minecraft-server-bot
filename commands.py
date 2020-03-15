@@ -43,11 +43,11 @@ class Diagnostic(Category):
         pending = raw_response['status']
         domain = raw_response['domain']
         ip = raw_response['ip']
-        response = f"Physical server: {pserver}" \
-            f"Minecraft: {minecraft}" \
-            f"Pending operations: {pending}" \
-            f"Server hostname: {domain}" \
-            f"Server ip: {ip}"
+        response = f"Physical server: {pserver}\n" \
+            f"Minecraft: {minecraft}\n" \
+            f"Pending operations: {pending}\n" \
+            f"Server hostname: {domain}\n" \
+            f"Server ip: {ip}\n"
         await channel.send(response)
         logging.info(f"'{ctx.command}' command called by {ctx.author}. Response was '{response}'")
 
@@ -64,6 +64,8 @@ class DOServer(Category):
         channel = self.client.get_channel(self.discord_channel)
         response = apiErrorHandler(self.api.start())
         await channel.send(response)
+        msg = "This will take a few minutes. Use .status to check when the server is online!"
+        await channel.send(msg)
         logging.info(f"'{ctx.command}' command called by {ctx.author}. Response was '{response}'")
 
     @commands.command()
